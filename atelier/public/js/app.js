@@ -1,4 +1,5 @@
 import { validateMessage, replyTo } from './brain.js';
+import { renderMessages } from './view.js';
 
 const formulaire = document.querySelector('#chat-form');
 const statut = document.querySelector('#status');
@@ -6,12 +7,8 @@ const champ = document.querySelector('#message');
 const liste = document.querySelector('#messages');
 const boutonsDeQuestions = document.querySelectorAll('#suggestions button');
 
-// Ajoute une ligne de texte à la liste des messages.
-function ajouterLigne(texte) {
-  const ligne = document.createElement('li');
-  ligne.textContent = texte;
-  liste.append(ligne);
-}
+// La conversation : un tableau d'objets { role, text }, où role vaut 'user' ou 'assistant'.
+const historique = [];
 
 // À l'envoi : la page ne se recharge pas, le cerveau vérifie le message puis répond.
 formulaire.addEventListener('submit', (event) => {
@@ -22,8 +19,9 @@ formulaire.addEventListener('submit', (event) => {
     champ.focus();
     return;
   }
-  ajouterLigne(`Vous : ${resultat.value}`);
-  ajouterLigne(`Cap Web : ${replyTo(resultat.value)}`);
+  historique.push({ role: 'user', text: resultat.value });
+  historique.push({ role: 'assistant', text: replyTo(resultat.value) });
+  renderMessages(historique, liste);
   champ.value = '';
   statut.textContent = '';
 });
