@@ -13,5 +13,7 @@ formulaire.addEventListener('submit', (event) => {
 for (const bouton of boutonsDeQuestions) {
   bouton.addEventListener('click', () => {
     champ.value = bouton.textContent;
+    champ.focus();
+    statut.textContent = 'Question copiée : modifiez-la ou envoyez-la.';
   });
 }
