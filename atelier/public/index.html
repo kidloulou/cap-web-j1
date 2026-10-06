@@ -14,10 +14,10 @@
   <main>
     <section aria-labelledby="titre-discussion">
       <h2 id="titre-discussion">Discussion</h2>
-      <ul id="messages"></ul>
+      <ul id="messages" aria-label="Messages"></ul>
       <form id="chat-form">
         <label for="message">Votre message (280 caractères maximum)</label>
-        <textarea id="message" name="message" rows="3" maxlength="280"></textarea>
+        <textarea id="message" name="message" rows="3" maxlength="280" required></textarea>
         <button type="submit">Envoyer</button>
       </form>
       <ul id="suggestions">
