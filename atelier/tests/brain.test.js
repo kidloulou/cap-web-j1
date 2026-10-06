@@ -1,0 +1,32 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { validateMessage, replyTo } from '../public/js/brain.js';
+
+// La limite du cahier personnel. Valeur provisoire : mettre ici le vrai nombre du cahier.
+const N = 280;
+
+describe('validateMessage', () => {
+  it('refuse une chaîne vide ou faite d’espaces', () => {
+    assert.equal(validateMessage('').ok, false);
+    assert.equal(validateMessage('   ').ok, false);
+  });
+
+  it('accepte « salut » entouré d’espaces et retire les espaces', () => {
+    assert.deepEqual(validateMessage('  salut  '), { ok: true, value: 'salut' });
+  });
+
+  it('accepte N caractères et refuse N + 1', () => {
+    assert.equal(validateMessage('a'.repeat(N)).ok, true);
+    assert.equal(validateMessage('a'.repeat(N + 1)).ok, false);
+  });
+});
+
+describe('replyTo', () => {
+  it('répond pareil à « SALUT » et à « salut »', () => {
+    assert.equal(replyTo('SALUT'), replyTo('salut'));
+  });
+
+  it('donne à « horaires » une autre réponse qu’à une phrase inconnue', () => {
+    assert.notEqual(replyTo('horaires'), replyTo('une phrase inconnue'));
+  });
+});
