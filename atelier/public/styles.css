@@ -10,14 +10,21 @@ body {
   background: #ffffff;
 }
 
-main {
+header,
+main,
+footer {
   max-width: 48rem;
   margin: 0 auto;
   padding: 1rem;
 }
 
-h1 {
+h1,
+h2 {
   margin: 0 0 0.5rem;
+}
+
+footer {
+  font-size: 0.9rem;
 }
 
 #messages {
